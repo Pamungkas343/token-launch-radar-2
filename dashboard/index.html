@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar — pre-token DeFi ranked by implied launch value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <h1>Token Launch Radar</h1>
+  <p class="tag">Every pre-token DeFi protocol, ranked by what its token would be worth if it launched today — and how to farm it first.</p>
+  <p class="meta" id="meta"></p>
+</header>
+<main>
+  <section class="spot" id="spot" aria-label="Top three"></section>
+  <section class="controls" aria-label="Filters">
+    <input id="q" type="search" placeholder="Search a protocol&hellip;" aria-label="Search">
+    <select id="cat" aria-label="Category"><option value="">All categories</option></select>
+    <select id="chain" aria-label="Chain"><option value="">All chains</option></select>
+    <label class="check"><input id="watch" type="checkbox"> Watchlist only</label>
+    <select id="sort" aria-label="Sort">
+      <option value="rank">Sort: implied value</option>
+      <option value="tvl">Sort: TVL</option>
+      <option value="growth">Sort: 7-day growth</option>
+      <option value="name">Sort: name A&ndash;Z</option>
+    </select>
+  </section>
+  <nav class="tabs" aria-label="Views">
+    <button data-tab="board" class="active">Pre-token board</button>
+    <button data-tab="live">Live token</button>
+    <button data-tab="setaside">Set aside</button>
+  </nav>
+  <p class="count" id="count"></p>
+  <div class="table-wrap"><table id="board">
+    <thead><tr><th>#</th><th>Protocol</th><th>Category</th><th>Chains</th><th>TVL</th><th>7d</th><th>Implied value</th><th></th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <section class="model" aria-label="The model">
+    <h2>How the value is built</h2>
+    <p class="formula">implied value = TVL &times; category multiple &times; growth &times; maturity</p>
+    <p class="model-note">The multiple is the median market-cap / TVL of the live-token protocols in the same category (at least 3 samples), otherwise the global median. Growth is half-weighted 7-day TVL change, clamped. Maturity rewards time listed, capped at three years. Nothing here predicts that a token will launch — it ranks what one would be worth if it did.</p>
+    <div class="table-wrap small"><table id="multiples"><thead><tr><th>Category</th><th>Live samples</th><th>Multiple</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+  </section>
+  <p class="foot">Data: sealed DefiLlama snapshot. &ldquo;No token&rdquo; means the snapshot records no token — not proof that none exists. Wrapped, staked and bridged products of tokens that already trade are set aside, not ranked. Not financial advice.</p>
+</main>
+<dialog class="detail" id="detail">
+  <form method="dialog"><button class="close" aria-label="Close">&times;</button></form>
+  <h2></h2>
+  <p class="sub" id="detail-sub"></p>
+  <div class="detail-section">
+    <h3>Model breakdown</h3>
+    <p class="sub" id="recompute"></p>
+    <dl id="breakdown"></dl>
+  </div>
+  <div class="detail-section">
+    <h3>How to farm it</h3>
+    <ol class="steps" id="steps"></ol>
+  </div>
+</dialog>
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
